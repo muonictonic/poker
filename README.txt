@@ -13,7 +13,6 @@ Last Update: 9/3/2013
 In construction:
 
     Still working on a lot of things. So a lot of the functions are still
-    pretty rough. Also comments are missing from a lot of areas. I'm also
-    planning to allow the user to see the other hands after each game, and
-    possibly adding the ability to discard and draw new cards before the game
-    is decided.
+    pretty rough. I'm also planning to allow the user to see the other hands 
+    after each game, and possibly adding the ability to discard and draw new
+    cards before the game is decided.
