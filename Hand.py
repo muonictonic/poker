@@ -6,11 +6,14 @@ class Hand(object):
 
         self.hand = hand
         self.sortHand()
-        
+     
+    #Sorts the hand by rank and suit
     def sortHand(self):
 
         self.hand.sort()
 
+    #Creates a histogram of the frequencies of each rank for use
+    #in determining the hand's type
     def rankHistogram(self):
 
         h = dict()
@@ -23,7 +26,8 @@ class Hand(object):
                 h[card.rank] += 1
         
         return h
-
+    
+    #Returns a list of the ranks of each card in the hand
     def getRankList(self):
         
         ranks = []
@@ -33,6 +37,7 @@ class Hand(object):
 
         return ranks
 
+    #Returns a list of the suits of each card in the hand
     def getSuitList(self):
 
         suits = []
@@ -42,6 +47,7 @@ class Hand(object):
 
         return suits
     
+    #Returns true if there is a pair in the hand, and the value of those cards
     def pair(self):
         
         onePair = False
@@ -52,6 +58,8 @@ class Hand(object):
 
         return False, None
     
+    #Returns true if there are twp pairs in the hand, 
+    #and the value of those cards
     def twoPair(self):
         
         havePair = False
@@ -64,7 +72,9 @@ class Hand(object):
                 return True, rank1, rank
 
         return False, None, None
-
+    
+    #Returns true if there is a three of a kind in the hand,
+    #and the value of those cards
     def threeOfaKind(self):
 
         for rank, freq in self.rankHistogram().items():
@@ -72,7 +82,9 @@ class Hand(object):
                 return True, rank
             
         return False, None
-
+    
+    #Returns true if there is a four of a kind in the hand,
+    #and the value of those cards
     def fourOfaKind(self):
        
         for rank, freq in self.rankHistogram().items():
@@ -80,7 +92,8 @@ class Hand(object):
                 return True, rank
 
         return False, None  
-
+    
+    #Returns true of the hand is a straight
     def straight(self):
  
         ranks = self.sortRank(self.getRankList())
@@ -90,7 +103,8 @@ class Hand(object):
                 return False
 
         return True  
-
+    
+    #Returns true is the hand is a straight flush
     def straightFlush(self):
 
         if not self.straight():
@@ -101,7 +115,9 @@ class Hand(object):
                 return False
         
         return True 
-
+    
+    #Returns true if the hand is a full house, 
+    #and the value of the high card
     def fullHouse(self):
 
         pair, temp1   = self.pair()
@@ -119,6 +135,7 @@ class Hand(object):
                 low = rank
         return True, high, low
 
+    #Returns true if the hand is a flush
     def flush(self):
 
         suits = self.getSuitList()
@@ -128,7 +145,8 @@ class Hand(object):
                 return False
         
         return True
-
+    
+    #Returns true if the hand is a Royal Flush
     def royalFlush(self):
 
         if not self.flush():
@@ -146,7 +164,9 @@ class Hand(object):
             return True
 
         return False
-           
+    
+    #Returns a list of numbers that correspond
+    #to the ranks of each card in the hand
     def sortRank(self, ranks):
 
         ref = dict()
@@ -162,13 +182,18 @@ class Hand(object):
         
         return num_hand
 
-
+    
+    #Prints the values of each card in the hand,
+    #as <rank> of <suit>
     def __str__(self):
         
         for card in self.hand:
             print "%s of %s" % (
                   card.getRank(), card.getSuit())
-		    
+	
+    #Determines which is the best possible type of the hand.
+    #And returns the name of the hand to be used in the dictionary
+    #in the Engine class
     def determineScore(self):
 	
         pair, high = self.pair()
